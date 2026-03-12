@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Footer from './components/Footer'
 import Header from './components/Header'
+import BemVindo from './components/BemVindo'
 
 function App() {
   return (
@@ -11,6 +12,11 @@ function App() {
       <Header
         titulo="My Daily Habits"
         descricao="Gerencie seus hábitos diários de forma simples e visual."
+      />
+
+      <BemVindo
+        nomeUsuario="Paulo Mesquita"
+        totalHabitos={3}
       />
 
       <br />
