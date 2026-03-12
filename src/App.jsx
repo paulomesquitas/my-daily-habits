@@ -3,12 +3,15 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Footer from './components/Footer'
+import Header from './components/Header'
 
 function App() {
   return (
     <div>
-      <h1>My Daily Habits</h1>
-      <p>Gerencie seus hábitos diários de forma simples e visual.</p>
+      <Header
+        titulo="My Daily Habits"
+        descricao="Gerencie seus hábitos diários de forma simples e visual."
+      />
 
       <br />
       <Footer />
