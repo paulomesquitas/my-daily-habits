@@ -1,18 +1,59 @@
 // src/components/HabitList.jsx
 import { useState } from 'react'
+import { useEffect } from 'react'
 import HabitCard from './HabitCard'
 
 function HabitList() {
-    const [habits, setHabits] = useState([
-        { id: 1, nome: 'Exercício', descricao: 'Treino de força', meta: 5, ativo: true, diasFeitos: 5 },
-        { id: 2, nome: 'Leitura', descricao: 'Livro ou artigo', meta: 7, ativo: true, diasFeitos: 3 },
-        { id: 3, nome: 'Meditação', descricao: 'Respiração e foco', meta: 7, ativo: false, diasFeitos: 0 },
-        { id: 4, nome: 'Hidratação', descricao: 'Beber 2L de água', meta: 7, ativo: true, diasFeitos: 6 },
-    ])
+    // const [habits, setHabits] = useState([
+    //     { id: 1, nome: 'Exercício', descricao: 'Treino de força', meta: 5, ativo: true, diasFeitos: 5 },
+    //     { id: 2, nome: 'Leitura', descricao: 'Livro ou artigo', meta: 7, ativo: true, diasFeitos: 3 },
+    //     { id: 3, nome: 'Meditação', descricao: 'Respiração e foco', meta: 7, ativo: false, diasFeitos: 0 },
+    //     { id: 4, nome: 'Hidratação', descricao: 'Beber 2L de água', meta: 7, ativo: true, diasFeitos: 6 },
+    // ])
+
+    const [habits, setHabits] = useState(() => {
+        // Esta função executa UMA VEZ — na montagem
+        const stored = localStorage.getItem('my-daily-habits')
+
+        // Se não há nada salvo — usa o array inicial
+        if (!stored) return [
+            { id: 1, nome: 'Exercício', descricao: 'Treino de força', meta: 5, ativo: true, diasFeitos: 5 },
+            { id: 2, nome: 'Leitura', descricao: 'Livro ou artigo', meta: 7, ativo: true, diasFeitos: 3 },
+            { id: 3, nome: 'Meditação', descricao: 'Respiração e foco', meta: 7, ativo: false, diasFeitos: 0 },
+            { id: 4, nome: 'Hidratação', descricao: 'Beber 2L de água', meta: 7, ativo: true, diasFeitos: 6 },
+        ]
+
+        // Se há dados salvos — tenta fazer o parse
+        try {
+            return JSON.parse(stored)
+        } catch {
+            // Se o JSON estiver corrompido — volta pro array inicial
+            return []
+        }
+    })
+
 
     const [novoNome, setNovoNome] = useState('')
     const [novaDescricao, setNovaDescricao] = useState('')
     const [novaCategoria, setNovaCategoria] = useState('')
+
+
+    // Passo 1 — montagem  (useEffect)
+    // useEffect(() => {
+    //     console.log('✅ HabitList montou')
+    // }, [])
+
+    // // Passo 2 — atualização (useEffect)
+    // useEffect(() => {
+    //     console.log('🔄 habits mudou. Total:', habits.length)
+    // }, [habits])
+
+    // Passo 3 — salvar no localStorage
+    useEffect(() => {
+        localStorage.setItem('my-daily-habits', JSON.stringify(habits))
+        //console.log('💾 Hábitos salvos:', habits.length)
+    }, [habits])
+
 
     const removerHabit = (id) => {
         setHabits(habits.filter(habit => habit.id !== id))
