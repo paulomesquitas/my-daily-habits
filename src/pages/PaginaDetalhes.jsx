@@ -13,7 +13,7 @@ function PaginaDetalhes() {
 
     if (!habit) {
         return (
-            <main className="pagina-detalhes">
+            <main className="pagina-detalhes container">
                 <h1>Hábito não encontrado</h1>
                 <button onClick={() => navigate('/habitos')}>
                     ← Voltar para a lista
@@ -30,7 +30,7 @@ function PaginaDetalhes() {
     }
 
     return (
-        <main className="pagina-detalhes">
+        <main className="pagina-detalhes container">
             <button onClick={() => navigate(-1)} className="btn-voltar">
                 ← Voltar
             </button>
